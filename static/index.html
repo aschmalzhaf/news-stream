@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+	<head>
+		<title>News Stream</title>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+		<link rel="stylesheet" type="text/css" href="css/app.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+		<script src="js/afu/angular-file-upload-html5-shim.js"></script>
+		<script src="js/afu/angular-file-upload.js"></script> 
+		<script src="js/app.js"></script> 		
+	</head>
+
+	<body ng-app="app">
+
+		<div class="newsbox" ng-controller="newsController">
+			Elements: <br>
+			<ul>
+				<li ng-repeat="element in elements">
+					{{element.type}}
+					<a target="_blank" ng-href="http://localhost/pictures/{{element.value}}">
+						<img style="width: 40px" ng-src="http://localhost/pictures/{{element.value}}"/>
+					</a>
+				</li>
+			</ul>
+
+		</div>
+
+		<div ng-controller="uploadController">
+			Nothing here {{'yet' + '!'}}
+		  <input type="file" ng-file-select="onFileSelect($files)" >
+		  <div ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class"
+		        ng-show="dropSupported">drop files here</div>
+		  <div ng-file-drop-available="dropSupported=true" 
+		        ng-show="!dropSupported">HTML5 Drop File is not supported!</div>
+		  <button ng-click="upload.abort()">Cancel Upload</button>
+		</div>
+	</body>
+
+</html>

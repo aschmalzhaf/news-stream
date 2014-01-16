@@ -1,0 +1,11 @@
+.newsbox {
+  width: 300px;
+  height: 500px;
+  background-color: #DDD;
+  margin: 10px;
+  padding: 10px;
+  border: 1px;
+  border-color: #111;
+  overflow-x: none;
+  overflow-y: scroll;
+}
