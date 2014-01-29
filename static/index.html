@@ -1,41 +1,65 @@
 <!doctype html>
 <html>
-	<head>
-		<title>News Stream</title>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
-		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
-		<link rel="stylesheet" type="text/css" href="css/app.css">
-		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
-		<script src="js/afu/angular-file-upload-html5-shim.js"></script>
-		<script src="js/afu/angular-file-upload.js"></script> 
-		<script src="js/app.js"></script> 		
-	</head>
+<head>
+	<title>News Stream</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css">
+	<link rel="stylesheet" type="text/css" href="css/app.css">
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+	<script src="js/afu/angular-file-upload-html5-shim.js"></script>
+	<script src="js/afu/angular-file-upload.js"></script> 
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="js/app.js"></script> 
+</head>
 
-	<body ng-app="app">
+<body ng-app="app">
+	<div id="wrap">
 
-		<div class="newsbox" ng-controller="newsController">
-			Elements: <br>
-			<ul>
-				<li ng-repeat="element in elements">
-					{{element.type}}
-					<a target="_blank" ng-href="http://localhost/pictures/{{element.value}}">
-						<img style="width: 40px" ng-src="http://localhost/pictures/{{element.value}}"/>
+		<!-- Begin page content -->
+		<div class="container" ng-controller="newsController" style="overflow-y: scroll; height: 100%; ">
+
+			<button ng-click="gotoLast()">GoToLast</button>
+			<button ng-click="notifyPic()">Notify</button> 
+			
+			<div >
+				Elements: <br>
+				<ul class="s_entries">
+					<li ng-repeat="element in elements" scrolldown>
+						<a target="_blank" ng-href="http://localhost/uploads/{{element.value}}">
+							<img ng-src="http://localhost/uploads/{{element.value}}"/>
+						</a>
+					</li>
+				</ul>
+				<div style="margin-top: 50px;">
+					<a id="last">
 					</a>
-				</li>
-			</ul>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			<div ng-controller="uploadController">
+				<form enctype="multipart/form-data">
+					<input type="file" id="picture" name="picture" ng-file-select="onFileSelect($files)" >
+				</form>
+				<button ng-click="upload.abort()">Cancel Upload</button>
 
+				<div ng-show="selectedFiles != null">
+					<div class="sel-file" ng-repeat="f in selectedFiles">
+						<img style="width: 50px;" ng-src="{{dataUrls[$index]}}">
+						<button class="button" ng-click="start($index)" ng-show="progress[$index] < 0">Start</button>
+						<span class="progress" ng-show="progress[$index] >= 0">						
+							<div style="width:{{progress[$index]}}%">{{progress[$index]}}%</div>
+						</span>				
+						<button class="button" ng-click="abort($index)" ng-show="hasUploader($index) && progress[$index] < 100">Abort</button>
+						{{f.name}} - size: {{f.size}}B - type: {{f.type}}
+					</div>
+				</div>
+
+			</div>
 		</div>
 
-		<div ng-controller="uploadController">
-			Nothing here {{'yet' + '!'}}
-		  <input type="file" ng-file-select="onFileSelect($files)" >
-		  <div ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="optional-css-class"
-		        ng-show="dropSupported">drop files here</div>
-		  <div ng-file-drop-available="dropSupported=true" 
-		        ng-show="!dropSupported">HTML5 Drop File is not supported!</div>
-		  <button ng-click="upload.abort()">Cancel Upload</button>
-		</div>
-	</body>
+	</div>
 
+</body>
 </html>

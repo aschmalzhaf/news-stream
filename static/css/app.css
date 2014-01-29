@@ -1,11 +1,63 @@
-.newsbox {
-  width: 300px;
-  height: 500px;
-  background-color: #DDD;
-  margin: 10px;
-  padding: 10px;
-  border: 1px;
-  border-color: #111;
-  overflow-x: none;
-  overflow-y: scroll;
+
+
+html,
+body {
+	height: 100%;
+	max-width: 680px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: black;
+}
+
+/* Styles for Entry List
+-------------------------------------------------- */
+.s_entries img {
+	border-radius: 15px;
+	border-color: white;
+	border-width: 2px;
+	border-style: solid;
+	width: 200px;
+	height: 200px;
+}
+
+.s_entries {
+	list-style-type: none;
+
+	width: 100%;
+}
+
+.s_entries li {
+	margin-top: 40px;
+	margin-bottom: 40px;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+
+
+
+#wrap {
+	height: 100%;
+	width: 100%;
+	padding-bottom: 160px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+	height: 160px;
+	background-color: #f5f5f5;
+	right: 0;
+	left: 0;
+	bottom: 0;
+}
+
+
+
+.container {
+	width: auto;
+	max-width: 680px;
+	padding: 0 15px;
+	background: url('https://www.tizen.org/sites/all/themes/tizen_theme/images/background-pattern.jpg');
 }
